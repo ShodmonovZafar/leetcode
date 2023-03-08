@@ -1,30 +1,28 @@
-class Node:
-    def __init__(self, val):
-        self.data = val
-        self.next = None
-    
-    def getData(self):
-        return self.data
+class ListNode:
+    def __init__(self, val=0, next=None) -> None:
+        self.val = val
+        self.next = next
 
-    def getNext(self):
-        return self.next
-    
-    def setData(self, val):
-        self.data = val
 
-    def setNext(self, val):
-        self.next = val
+def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
+    dummy = ListNode()
+    cur = dummy
+    carry = 0
+    while l1 or l2 or carry:
+        v1 = l1.val if l1 else 0
+        v2 = l2.val if l2 else 0
 
-  
-class LinkedList:
-    def __init__(self):
-        self.head = None
-    
-    def isEmpty(self):
-        return self.head is None
+        # new digit
+        val = v1 + v2 + carry
+        carry = val // 10
+        val = val % 10
+        cur.next = ListNode(val)
 
-    def add(self, item):
-        new_node = Node(item)
-        new_node.setNext(self.head)
-        self.head = new_node
-    
+        # update ptrs
+        cur = cur.next
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+    return dummy.next
+
+addTwoNumbers(ListNode(), ListNode())
